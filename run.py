@@ -18,6 +18,72 @@ def choose_word(words):
     words.remove(chosen_word)
     return chosen_word
 
+def play_game(words, attempts):
+    """
+    Main game function.
+    """
+    if not words:
+        print("\n\033[31mNo words left to choose from. Game over.\033[0m")
+        return False  # Return False to indicate the game ends
+
+    # Display game instructions and hint
+    print("\033[33mWelcome to Guess the Word!\033[0m")
+    print(f"Try to guess the word within {attempts} attempts.")
+    print("You only lose an attempt if the attempt is \033[31mincorrect\033[0m.")
+    print(f"\033[32mThere are {len(words)} words in total to guess from.\033[0m")
+    print("\n\033[33mOnce all words are guessed, you will be given a score\033[0m.")
+
+    chosen_word = choose_word(words)
+
+    guessed_letters = set()
+
+    while attempts > 0:
+        # Display the current state of the word being guessed and the number of attempts left
+        display = "".join(
+            letter if letter in guessed_letters else "_"
+            for letter in chosen_word)
+
+        display = " ".join(display)
+        print("\nWord:", display)
+        print("\033[31mAttempts left:\033[0m", attempts)
+
+        # Ask the user to guess a letter
+        while True:
+            print("\033[33mHint: Each word is a type of fruit\033[0m.")
+            guess = input("\nGuess a letter: ").lower()
+            if len(guess) == 1 and guess.isalpha():
+                break
+            else:
+                print("\n\033[31mError: Please enter only 1 letter and only a letter\033[0m")
+
+        # Check if the guessed letter is already guessed
+        if guess in guessed_letters:
+            print("\033[31mYou already guessed that letter!\033[0m")
+        elif guess in chosen_word:
+            print("\n\033[32mCorrect guess!\033[0m")
+
+            # Add the guessed letter to the set of guessed letters
+            guessed_letters.add(guess)
+
+            # Check if all letters of the word have been guessed
+            if set(guessed_letters) == set(chosen_word):
+                print(
+                    "\n\033[32mCongratulations! You guessed the word correctly. "
+                    f"The word was: {chosen_word}\033[0m\n")
+
+                guessed_words.append(chosen_word)
+                return True  # Return True to indicate the game ends
+
+        else:
+            print("\n\033[31mIncorrect guess!\033[0m")
+            attempts -= 1
+
+    print(
+        "\n\033[31mSorry, you have run out of attempts. "
+        f"The word was: {chosen_word}\033[0m\n")
+
+    return True  # Return True to indicate the game ends
+
 def main():
     # Make 'words' accessible globally
     global words

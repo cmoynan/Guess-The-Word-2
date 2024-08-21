@@ -29,7 +29,8 @@ def play_game(words, attempts):
     # Display game instructions and hint
     print(f"Try to guess the word within {attempts} attempts.")
     print("You only lose an attempt if the attempt is \033[31mincorrect\033[0m.")
-    print(f"\033[32mThere are {len(words)} words in total left to guess from.\033[0m")
+    print(f"\033[32mThere are {len(words)} words")
+    print("in total left to guess from.\033[0m")
     print("\n\033[33mOnce all words are guessed, you will be given a score\033[0m.")
 
     chosen_word = choose_word(words)
@@ -103,10 +104,10 @@ def main():
         # Let the player choose the difficulty level
         difficulty = input(
             "\033[32mChoose difficulty level:\n"
-            "\033[92m1. Easy (8 attempts)\033[0m\n"
+            "\n\033[92m1. Easy (8 attempts)\033[0m\n"
             "\033[33m2. Hard (6 attempts)\033[0m\n"
             "\033[31m3. Extreme (4 attempts)\033[0m\n"
-            "Type '1', '2', or '3': \033[0m"
+            "\nType '1', '2', or '3': \033[0m"
         ).lower()
 
         if difficulty == "1":

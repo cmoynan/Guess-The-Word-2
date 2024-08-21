@@ -141,7 +141,12 @@ def main():
             break
 
         # Prompt the user if they want to play again
-        play_again = input("\nDo you want to play again? (y/n): ").lower()
+        while True:
+            play_again = input("\nDo you want to play again? (y/n): ").lower()
+            if play_again in ('y', 'n'):
+                break
+            else:
+                print("\n\033[31mError: Please enter 'y' for yes or 'n' for no.\033[0m")
 
         if play_again != 'y':
             print("\033[33mThanks for playing. We hope to see you again soon!\033[0m")

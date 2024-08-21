@@ -99,8 +99,8 @@ def main():
     print("The difficulty level you choose will determine how many attempts you have to guess each word.")
     print("\n\033[36mGood luck!\033[0m\n")
 
-    # Let the player choose difficulty level
     while True:
+        # Let the player choose the difficulty level
         difficulty = input(
             "\033[32mChoose difficulty level:\n"
             "\033[92m1. Easy (8 attempts)\033[0m\n"
@@ -121,30 +121,34 @@ def main():
         else:
             print("\n\033[31mError: Please choose '1', '2', or '3'.\033[0m")
 
-    # Randomly select 6 words from the words list for this game
-    selected_words = random.sample(words, 6)
-
     while True:
-        # If the game returns False (indicating it's over), exit the loop
-        if not play_game(selected_words, attempts):
-            # Calculate the score by counting the guessed words
-            score = len(guessed_words)
-            print(f"\n\033[33mYou guessed {score} /6 words correctly.\033[0m")
+        # Randomly select 6 words from the words list for this game
+        selected_words = random.sample(words, 6)
 
-            # If there are no more words left to play
-            if not selected_words:
-                print("\n\033[33mThanks for playing. We hope to see you again soon\033[0m")
+        # Loop through each selected word to play the game
+        for _ in range(6):
+            if not play_game(selected_words, attempts):
                 break
 
-            # Prompt the user if they want to play again
-            play_again = input("\nDo you want to play again? (y/n): ").lower()
+        # Calculate the score by counting the guessed words
+        score = len(guessed_words)
+        print(f"\n\033[33mYou guessed {score} /6 words correctly.\033[0m")
 
-            if play_again != 'y':
-                print("\033[33mThanks for playing. We hope to see you again soon\033[0m")
-                break
+        # Check if all words have been guessed or prompt for replay
+        if score == 6:
+            print("\n\033[33mYou've guessed all the words! Game over.\033[0m")
+            break
 
-            # Reset the 'words' list and 'guessed_words' list for a new game
-            selected_words = random.sample(words, 6)
-            guessed_words.clear()
+        # Prompt the user if they want to play again
+        play_again = input("\nDo you want to play again? (y/n): ").lower()
 
-main()
+        if play_again != 'y':
+            print("\033[33mThanks for playing. We hope to see you again soon!\033[0m")
+            break
+
+        # Reset the 'guessed_words' list for a new game
+        guessed_words.clear()
+
+
+if __name__ == "__main__":
+    main()

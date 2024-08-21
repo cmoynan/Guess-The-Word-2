@@ -27,15 +27,16 @@ def play_game(words, attempts):
         return False  # Return False to indicate the game ends
 
     # Display game instructions and hint
-    print("\033[33mWelcome to Guess the Word!\033[0m")
     print(f"Try to guess the word within {attempts} attempts.")
     print("You only lose an attempt if the attempt is \033[31mincorrect\033[0m.")
-    print(f"\033[32mThere are {len(words)} words in total to guess from.\033[0m")
+    print(f"\033[32mThere are {len(words)} words in total left to guess from.\033[0m")
     print("\n\033[33mOnce all words are guessed, you will be given a score\033[0m.")
 
     chosen_word = choose_word(words)
-
+    
+    # Keep track of correct and incorrect guesses
     guessed_letters = set()
+    incorrect_guesses = set()
 
     while attempts > 0:
         # Display the current state of the word being guessed and the number of attempts left
@@ -57,7 +58,7 @@ def play_game(words, attempts):
                 print("\n\033[31mError: Please enter only 1 letter and only a letter\033[0m")
 
         # Check if the guessed letter is already guessed
-        if guess in guessed_letters:
+        if guess in guessed_letters or guess in incorrect_guesses:
             print("\033[31mYou already guessed that letter!\033[0m")
         elif guess in chosen_word:
             print("\n\033[32mCorrect guess!\033[0m")
@@ -75,7 +76,9 @@ def play_game(words, attempts):
                 return True  # Return True to indicate the game ends
 
         else:
+            # If the guess was incorrect, add it to the set of incorrect guesses
             print("\n\033[31mIncorrect guess!\033[0m")
+            incorrect_guesses.add(guess)
             attempts -= 1
 
     print(

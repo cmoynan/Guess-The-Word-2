@@ -99,10 +99,13 @@ To ensure a smooth and error-free gameplay experience, the Guess the Word game i
 ### Difficulty Level Selection
 When choosing the difficulty level, the game verifies that the user inputs a valid option:
 
-Accepted Inputs: Users must enter '1', '2', or '3' to select the difficulty level. Each input corresponds to a predefined number of attempts:
+### Accepted Inputs:
+Users must enter '1', '2', or '3' to select the difficulty level. Each input corresponds to a predefined number of attempts:
+
 1 for Easy (8 attempts)
 2 for Hard (6 attempts)
 3 for Extreme (4 attempts)
+
 If the user enters an invalid choice, an error message is displayed, and the user is prompted to enter a valid option again. This ensures that only acceptable inputs are processed.
 
 ![image](https://github.com/user-attachments/assets/7b3b91e7-a998-4b0f-9dde-417142e65da5)
@@ -159,6 +162,13 @@ In addition to manual testing, initial efforts were made to implement automated 
 The unit tests were primarily designed to run the game and validate its functionality. They consistently passed 4/4 tests but you had to play the game even in the test.py file to get the result so I decided to remove the automated tests.
 
 Despite the removal of automated unit tests, the core functionality and robustness of the game were ensured through thorough manual testing and continuous feedback from friends and colleagues
+
+## PEP8 Validation
+
+To ensure PEP8 validation I used the CI Python Linter. There was a lot of errors for lines being too long but once i corrct all these in the Python linter I copied the code back into the lve workspace.
+
+![image](https://github.com/user-attachments/assets/9b9fccbf-2cfa-42ff-a54f-b0fc88779041)
+
 
 # Known Issues
 

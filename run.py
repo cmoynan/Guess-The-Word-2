@@ -8,6 +8,7 @@ words = [
 ]
 guessed_words = []
 
+
 def choose_word(words):
     """
     Randomly chooses a word from the array to begin the game.
@@ -17,6 +18,7 @@ def choose_word(words):
     # Remove the chosen word from the list to prevent repetition
     words.remove(chosen_word)
     return chosen_word
+
 
 def play_game(words, attempts):
     """
@@ -28,19 +30,25 @@ def play_game(words, attempts):
 
     # Display game instructions and hint
     print(f"Try to guess the word within {attempts} attempts.")
-    print("You only lose an attempt if the attempt is \033[31mincorrect\033[0m.")
+    print("You only lose an attempt if the attempt is \033[31m"
+          "incorrect\033[0m.")
     print(f"\033[32mThere are {len(words)} words")
     print("in total left to guess from.\033[0m")
-    print("\n\033[33mOnce all words are guessed, you will be given a score\033[0m.")
+    print("\n\033[33mOnce all words are guessed, you will be "
+          "given a score\033[0m.")
 
     chosen_word = choose_word(words)
-    
+
     # Keep track of correct and incorrect guesses
     guessed_letters = set()
     incorrect_guesses = set()
 
     while attempts > 0:
-        # Display the current state of the word being guessed and the number of attempts left
+        """
+        Display the current state of the word being guessed
+        and the number of attempts left
+        """
+
         display = "".join(
             letter if letter in guessed_letters else "_"
             for letter in chosen_word)
@@ -56,7 +64,8 @@ def play_game(words, attempts):
             if len(guess) == 1 and guess.isalpha():
                 break
             else:
-                print("\n\033[31mError: Please enter only 1 letter and only a letter\033[0m")
+                print("\n\033[31mError: Please enter only 1 letter "
+                      "and only a letter\033[0m")
 
         # Check if the guessed letter is already guessed
         if guess in guessed_letters or guess in incorrect_guesses:
@@ -70,14 +79,16 @@ def play_game(words, attempts):
             # Check if all letters of the word have been guessed
             if set(guessed_letters) == set(chosen_word):
                 print(
-                    "\n\033[32mCongratulations! You guessed the word correctly. "
+                    "\n\033[32mWell done! You guessed the word correctly."
                     f"The word was: {chosen_word}\033[0m\n")
 
                 guessed_words.append(chosen_word)
                 return True  # Return True to indicate the game ends
 
         else:
-            # If the guess was incorrect, add it to the set of incorrect guesses
+            # If the guess was incorrect, add it to the array
+            # of incorrect guesses
+
             print("\n\033[31mIncorrect guess!\033[0m")
             incorrect_guesses.add(guess)
             attempts -= 1
@@ -88,6 +99,7 @@ def play_game(words, attempts):
 
     return True  # Return True to indicate the game ends
 
+
 def main():
     # Make 'words' accessible globally
     global words
@@ -95,9 +107,12 @@ def main():
 
     # Display game description
     print("\033[33mWelcome to Guess the Word!\033[0m\n")
-    print("In this game, you will attempt to guess a hidden word letter by letter.")
-    print("Each word is a type of fruit, and you have a limited number of attempts to guess the word correctly.")
-    print("The difficulty level you choose will determine how many attempts you have to guess each word.")
+    print("In this game, you will attempt to guess a hidden word "
+          "letter by letter.")
+    print("Each word is a type of fruit, and you have a limited number"
+          "of attempts to guess the word correctly.")
+    print("The difficulty level you choose will determine"
+          "how many attempts you have to guess each word.")
     print("\n\033[36mGood luck!\033[0m\n")
 
     while True:
@@ -146,10 +161,13 @@ def main():
             if play_again in ('y', 'n'):
                 break
             else:
-                print("\n\033[31mError: Please enter 'y' for yes or 'n' for no.\033[0m")
+                print("\n\033[31mError: Please enter 'y' for yes or "
+                      "'n' for no.\033[0m")
 
         if play_again != 'y':
-            print("\033[33mThanks for playing. We hope to see you again soon!\033[0m")
+            print("\033[33mThanks for playing. We hope to see you "
+                  "again soon!\033[0m")
+
             break
 
         # Reset the 'guessed_words' list for a new game
